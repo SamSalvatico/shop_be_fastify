@@ -1,7 +1,7 @@
-import fastify from 'fastify';
-import dotenv from 'dotenv';
-import dbConnection from './database/connection';
-import logger from './utils/logger';
+import fastify from "fastify";
+import dotenv from "dotenv";
+import DatabaseUtils from "./utils/databaseUtils";
+import logger from "./utils/logger";
 // server.get('/ping', async (request, reply) => {
 //  return 'pong\n'
 // })
@@ -9,21 +9,22 @@ import logger from './utils/logger';
 async function initializeServer() {
   try {
     dotenv.config();
-    const dbConn = await dbConnection({});
-    // logger.debug('hjkgdfhvf');
-    if (dbConn == null) {
-      logger.fatal('Error connecting to db');
-    } else {
-      const server = fastify();
-      // server.use(logger);
-      server.listen(8080, (err, address) => {
-        if (err) {
-          console.error(err);
-          process.exit(1);
-        }
-        logger.debug(`Server listening at ${address}`);
-      });
-    }
+    const server = fastify();
+    server.register(require("fastify-mongodb"), {
+      // force to close the mongodb connection when app stopped
+      // the default value is false
+      forceClose: true,
+      url: DatabaseUtils.getConnectionUrl()
+    });
+    // server.use(logger);
+    server.listen(8080, (err, address) => {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      logger.debug(`Server listening at ${address}`);
+    });
+    //}
   } catch (e) {
     console.log(e);
     logger.fatal(e);

@@ -20,11 +20,10 @@
     "dotenv": "^8.2.0",
     "fastify": "^3.0.2",
     "fastify-cors": "^4.0.0",
-    "mongodb": "^3.5.9",
+    "fastify-mongodb": "^2.0.1",
     "pino": "^6.3.2"
   },
   "devDependencies": {
-    "@types/mongodb": "^3.5.25",
     "@types/node": "^14.0.22",
     "@types/pino": "^6.3.0",
     "@typescript-eslint/eslint-plugin": "^3.6.0",
