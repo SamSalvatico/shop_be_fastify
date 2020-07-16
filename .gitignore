@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+.env
+uploads/
+as400/
+/.env.production
+/src/commands/Test.ts
+/.idea

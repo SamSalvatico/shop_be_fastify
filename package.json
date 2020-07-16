@@ -1,0 +1,41 @@
+{
+  "name": "inalpi_shop_be_fastify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "NODE_ENV=production node ./dist/server.js",
+    "start": "node ./dist/server.js",
+    "build": "npm run build-ts",
+    "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
+    "build-ts": "tsc -p .",
+    "watch-ts": "tsc -w",
+    "lint": "tsc --noEmit && eslint --ext .js,.jsx,.ts,.tsx ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "fastify": "^3.0.2",
+    "fastify-cors": "^4.0.0",
+    "mongodb": "^3.5.9",
+    "pino": "^6.3.2"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^3.5.25",
+    "@types/node": "^14.0.22",
+    "@types/pino": "^6.3.0",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-airbnb-typescript": "^8.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.7",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
+  }
+}
