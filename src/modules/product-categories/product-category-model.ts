@@ -1,6 +1,7 @@
-export default class ProductCategory {
-  private db: any;
-  protected collectionName: string = "product_categories";
+import BaseModel from "../base/base-model";
+
+export default class ProductCategory extends BaseModel {
+  collectionName = "product_categories";
 
   public name: string;
   public abstract?: string;
@@ -11,8 +12,4 @@ export default class ProductCategory {
   public meta_description?: string;
   public url_friendly_name?: string;
   public published?: boolean;
-
-  constructor(dbInstance: any) {
-    this.db = dbInstance;
-  }
 }
