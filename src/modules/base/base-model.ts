@@ -10,4 +10,8 @@ export default class BaseModel {
   get id(): string {
     return this._id;
   }
+
+  get pathPrefix() {
+    return this.collectionName;
+  }
 }
