@@ -1,15 +1,15 @@
 
 export default class BaseSchema {
   public properties = {};
-
-  get getOneSchema() {
+  public required: string[] = [];
+  get getOneSchema(): any {
     return {
       response: {
         200: {
           type: 'object',
-          properties: this.properties
-        }
-      }
+          properties: this.properties,
+        },
+      },
     };
   }
 
@@ -20,22 +20,27 @@ export default class BaseSchema {
           type: 'array',
           items: {
             type: 'object',
-            properties: this.properties
-          }
-        }
-      }
+            properties: this.properties,
+          },
+        },
+      },
     };
   }
 
   get createSchema() {
     return {
-      body: this.properties,
+      body: {
+        type: 'object',
+        required: this.required,
+        properties:
+          this.properties,
+      },
       response: {
         201: {
           type: 'object',
-          properties: this.properties
-        }
-      }
+          properties: this.properties,
+        },
+      },
     };
   }
 
@@ -45,9 +50,9 @@ export default class BaseSchema {
       response: {
         200: {
           type: 'object',
-          properties: this.properties
-        }
-      }
+          properties: this.properties,
+        },
+      },
     };
   }
 
@@ -56,9 +61,9 @@ export default class BaseSchema {
       response: {
         204: {
           type: 'object',
-          properties: this.properties
-        }
-      }
+          properties: this.properties,
+        },
+      },
     }
   }
 }

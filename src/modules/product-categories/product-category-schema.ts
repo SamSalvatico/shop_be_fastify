@@ -1,36 +1,39 @@
-import BaseSchema from "../base/base-schema"
+import BaseSchema from '../base/base-schema';
 
 export default class ProductCategorySchema extends BaseSchema {
   properties = {
     _id: {
-      type: "string"
+      type: 'string',
     },
     name: {
-      type: "string"
+      type: 'string',
     },
     abstract: {
-      type: "string"
+      type: 'string',
     },
     description: {
-      type: "string"
+      type: 'string',
     },
     image_path: {
-      type: "string"
+      type: 'string',
     },
     meta_title: {
-      type: "string"
+      type: 'string',
     },
     meta_keywords: {
-      type: "string"
+      type: 'string',
     },
     meta_description: {
-      type: "string"
+      type: 'string',
     },
     url_friendly_name: {
-      type: "string"
+      type: 'string',
     },
     published: {
-      type: "boolean"
-    }
+      type: 'boolean',
+    },
   };
+
+  required = ["name"];
+
 }

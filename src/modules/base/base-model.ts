@@ -1,12 +1,12 @@
 import { FastifyInstance } from "fastify";
 
 export default class BaseModel {
-  private fastifyInstance: any;
-  public static collectionName: string;
+  private static _collectionName: string;
+
   public _id!: string;
 
-  constructor(fastifyInstance: any) {
-    this.fastifyInstance = fastifyInstance;
+  get collectionName() {
+    return BaseModel._collectionName;
   }
 
   get id(): string {
@@ -14,6 +14,12 @@ export default class BaseModel {
   }
 
   get pathPrefix() {
-    return BaseModel.collectionName;
+    return BaseModel._collectionName;
   }
+
+  public toResponse() {
+    //delete this._collectionName;
+    return this;
+  }
+
 }

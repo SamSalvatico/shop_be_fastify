@@ -22,6 +22,7 @@
     "fastify": "^3.0.2",
     "fastify-cors": "^4.0.0",
     "fastify-mongodb": "^2.0.1",
+    "mongodb": "^3.5.9",
     "pino": "^6.3.2"
   },
   "devDependencies": {
