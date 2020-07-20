@@ -30,6 +30,11 @@ export default class BaseIndex {
       { schema: this.schema.getOneSchema },
       async (request: FastifyRequest, reply: FastifyReply) => this.show(request, reply)
     );
+    this.fastifyInstance.delete(
+      this.prefix + '/:id',
+      { schema: this.schema.deleteSchema },
+      async (request: FastifyRequest, reply: FastifyReply) => this.delete(request, reply)
+    );
   }
 
   public async create(request: any, reply: any) {
@@ -45,6 +50,16 @@ export default class BaseIndex {
 
   public async show(request: any, reply: any) {
     const resp = await this.service.show(request.params.id);
+    if (resp === undefined || resp == null) {
+      return reply.code(404).send(new Error("Item not found"));
+    }
+    else {
+      return reply.send(resp);
+    }
+  }
+
+  public async delete(request: any, reply: any) {
+    const resp = await this.service.delete(request.params.id);
     if (resp === undefined || resp == null) {
       return reply.code(404).send(new Error("Item not found"));
     }

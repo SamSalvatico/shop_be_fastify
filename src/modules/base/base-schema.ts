@@ -61,7 +61,7 @@ export default class BaseSchema {
       response: {
         '2xx': {
           type: 'object',
-          properties: this.properties,
+          properties: { _id: { type: "string" } },
         },
       },
     }

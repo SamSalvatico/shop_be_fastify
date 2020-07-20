@@ -49,6 +49,24 @@ export default class BaseService {
     }
   }
 
+  public async delete(id: string): Promise<object | null> {
+    try {
+      const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName)
+        .deleteOne({ _id: new ObjectId(id) });
+      if (resp == null || resp === undefined || resp.deletedCount == undefined || resp.deletedCount == null || resp.deletedCount == 0) {
+        return null;
+      }
+      return { _id: id };
+      // if (resp !== null && resp !== undefined) {
+      //   return Object.assign(new this.modelType(), resp);
+      // }
+      return resp;
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
+  }
+
   public async index(): Promise<BaseModel[]> {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName).find({});
