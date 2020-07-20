@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-underscore-dangle */
 import { ObjectId } from 'mongodb';
@@ -19,17 +20,19 @@ export default class BaseService {
     return this._collection;
   }
 
+  get pathPrefix(): string {
+    return `/${this._collection}`;
+  }
+
   public async create(body: any): Promise<BaseModel> {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName).insertOne(body);
       if (resp == null || resp === undefined || resp.ops.length < 1) {
         throw new Error("Insert didn't work");
-      }
-      else {
+      } else {
         return Object.assign(new this.modelType(), resp.ops[0]);
       }
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
       throw new Error(e);
     }
@@ -39,9 +42,6 @@ export default class BaseService {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName)
         .findOne({ _id: new ObjectId(id) });
-      // if (resp !== null && resp !== undefined) {
-      //   return Object.assign(new this.modelType(), resp);
-      // }
       return resp;
     } catch (e) {
       console.log(e);
@@ -49,18 +49,20 @@ export default class BaseService {
     }
   }
 
-  public async delete(id: string): Promise<object | null> {
+  public async delete(id: string): Promise<{ _id: string } | null> {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName)
         .deleteOne({ _id: new ObjectId(id) });
-      if (resp == null || resp === undefined || resp.deletedCount == undefined || resp.deletedCount == null || resp.deletedCount == 0) {
+      if (
+        resp == null
+        || resp === undefined
+        || resp.deletedCount === undefined
+        || resp.deletedCount == null
+        || resp.deletedCount === 0
+      ) {
         return null;
       }
       return { _id: id };
-      // if (resp !== null && resp !== undefined) {
-      //   return Object.assign(new this.modelType(), resp);
-      // }
-      return resp;
     } catch (e) {
       console.log(e);
       throw new Error(e);

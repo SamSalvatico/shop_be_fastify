@@ -25,7 +25,6 @@ async function initializeServer() {
     const i = new ProductCategoryIndex(
       server,
       new ProductCategoryService(ProductCategory, server),
-      '/product_categories',
       new ProductCategorySchema(),
     );
     i.register();

@@ -1,7 +1,9 @@
-
+/* eslint-disable class-methods-use-this */
 export default class BaseSchema {
   public properties = {};
+
   public required: string[] = [];
+
   get getOneSchema(): any {
     return {
       response: {
@@ -13,7 +15,7 @@ export default class BaseSchema {
     };
   }
 
-  get getAllSchema() {
+  get getAllSchema(): { response: any } {
     return {
       response: {
         '2xx': {
@@ -27,7 +29,7 @@ export default class BaseSchema {
     };
   }
 
-  get createSchema() {
+  get createSchema(): { response: any, body: any } {
     return {
       body: {
         type: 'object',
@@ -44,9 +46,14 @@ export default class BaseSchema {
     };
   }
 
-  get updateSchema() {
+  get updateSchema(): { response: any, body: any } {
     return {
-      body: this.properties,
+      body: {
+        type: 'object',
+        required: this.required,
+        properties:
+          this.properties,
+      },
       response: {
         '2xx': {
           type: 'object',
@@ -56,14 +63,14 @@ export default class BaseSchema {
     };
   }
 
-  get deleteSchema() {
+  get deleteSchema(): { response: any } {
     return {
       response: {
         '2xx': {
           type: 'object',
-          properties: { _id: { type: "string" } },
+          properties: { _id: { type: 'string' } },
         },
       },
-    }
+    };
   }
 }
