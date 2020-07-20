@@ -39,9 +39,9 @@ export default class BaseService {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName)
         .findOne({ _id: new ObjectId(id) });
-      if (resp !== null && resp !== undefined) {
-        return Object.assign(new this.modelType(), resp);
-      }
+      // if (resp !== null && resp !== undefined) {
+      //   return Object.assign(new this.modelType(), resp);
+      // }
       return resp;
     } catch (e) {
       console.log(e);

@@ -34,7 +34,7 @@ export default class BaseIndex {
 
   public async create(request: any, reply: any) {
     const resp = await this.service.create(request.body);
-    return reply.send(resp.toResponse());
+    return reply.send(resp);
   }
 
   public async index(request: any, reply: any) {
