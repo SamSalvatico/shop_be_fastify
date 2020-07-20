@@ -1,10 +1,12 @@
-export default class BaseModel {
-  private db: any;
-  protected collectionName: string;
-  public _id: string;
+import { FastifyInstance } from "fastify";
 
-  constructor(dbInstance: any) {
-    this.db = dbInstance;
+export default class BaseModel {
+  private fastifyInstance: any;
+  public static collectionName: string;
+  public _id!: string;
+
+  constructor(fastifyInstance: any) {
+    this.fastifyInstance = fastifyInstance;
   }
 
   get id(): string {
@@ -12,6 +14,6 @@ export default class BaseModel {
   }
 
   get pathPrefix() {
-    return this.collectionName;
+    return BaseModel.collectionName;
   }
 }

@@ -7,3 +7,4 @@ as400/
 /.env.production
 /src/commands/Test.ts
 /.idea
+/stdout

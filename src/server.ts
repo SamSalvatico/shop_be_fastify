@@ -2,12 +2,18 @@ import fastify from "fastify";
 import dotenv from "dotenv";
 import DatabaseUtils from "./utils/databaseUtils";
 import logger from "./utils/logger";
+import BaseService from "./modules/base/base-service";
+import ProductCategory from "./modules/product-categories/product-category-model";
+import ProductCategoryIndex from "./modules/product-categories/product-category-index";
+import ProductCategoryService from "./modules/product-categories/product-category-service";
+import ProductCategorySchema from "./modules/product-categories/product-category-schema";
 // server.get('/ping', async (request, reply) => {
 //  return 'pong\n'
 // })
 
 async function initializeServer() {
   try {
+
     dotenv.config();
     const server = fastify();
     server.register(require("fastify-mongodb"), {
@@ -16,6 +22,8 @@ async function initializeServer() {
       forceClose: true,
       url: DatabaseUtils.getConnectionUrl()
     });
+    const i = new ProductCategoryIndex(server, new ProductCategoryService(ProductCategory, server), "/product_categories",new ProductCategorySchema());
+    i.register();
     // server.use(logger);
     server.listen(8080, (err, address) => {
       if (err) {
