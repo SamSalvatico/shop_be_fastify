@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable no-underscore-dangle */
@@ -73,6 +74,21 @@ export default class BaseService {
     try {
       const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName).find({});
       return resp.toArray();
+    } catch (e) {
+      console.log(e);
+      throw new Error(e);
+    }
+  }
+
+  public async update(id: string, body: any): Promise<BaseModel | null> {
+    try {
+      delete body._id;
+      const resp = await this.fastifyInstance.mongo.db.collection(this.collectionName)
+        .findOneAndUpdate({ _id: new ObjectId(id) }, { $set: body }, { returnOriginal: false });
+      if (resp != null && resp !== undefined && resp.value != null && resp.value !== undefined) {
+        return resp.value;
+      }
+      return null;
     } catch (e) {
       console.log(e);
       throw new Error(e);

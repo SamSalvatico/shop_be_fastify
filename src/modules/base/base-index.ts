@@ -13,7 +13,7 @@ export default class BaseIndex {
   private schema: BaseSchema;
 
   constructor(fastifyInstance: FastifyInstance, serviceToUse: BaseService, schema: BaseSchema) {
-    this.prefix = serviceToUse.collectionName;
+    this.prefix = serviceToUse.pathPrefix;
     this.fastifyInstance = fastifyInstance;
     this.service = serviceToUse;
     this.schema = schema;
@@ -24,6 +24,11 @@ export default class BaseIndex {
       this.prefix,
       { schema: this.schema.createSchema },
       async (request: FastifyRequest, reply: FastifyReply) => this.create(request, reply),
+    );
+    this.fastifyInstance.put(
+      `${this.prefix}/:id`,
+      { schema: this.schema.updateSchema },
+      async (request: FastifyRequest, reply: FastifyReply) => this.update(request, reply),
     );
     this.fastifyInstance.get(
       this.prefix,
@@ -42,19 +47,27 @@ export default class BaseIndex {
     );
   }
 
-  public async create(request: any, reply: any) {
+  public async create(request: any, reply: FastifyReply) {
     const resp = await this.service.create(request.body);
     return reply.send(resp);
   }
 
-  public async index(request: any, reply: any) {
+  public async index(request: any, reply: FastifyReply) {
     const resp = await this.service.index();
     return reply.send(resp);
-    // return reply.send({ "name": "u" });
   }
 
-  public async show(request: any, reply: any) {
+  public async show(request: any, reply: FastifyReply) {
     const resp = await this.service.show(request.params.id);
+    if (resp === undefined || resp == null) {
+      return reply.code(404).send(new Error('Item not found'));
+    }
+
+    return reply.send(resp);
+  }
+
+  public async update(request: any, reply: FastifyReply) {
+    const resp = await this.service.update(request.params.id, request.body);
     if (resp === undefined || resp == null) {
       return reply.code(404).send(new Error('Item not found'));
     }
