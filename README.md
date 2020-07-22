@@ -8,4 +8,5 @@ TODO
 - auth -> https://github.com/fastify/fastify-auth dare occhio;
 - logging;
 - file upload;
+- querying per index, paginate, ...
 
