@@ -9,7 +9,7 @@ import UserSchema from '../modules/users/user-schema';
 import UserIndex from '../modules/users/user-index';
 import User from '../modules/users/user-model';
 import UserService from '../modules/users/user-service';
-import ProductCategoryBackofficeIndex from '../modules/product-categories/product-category-backoffice-index copy';
+import ProductCategoryBackofficeIndex from '../modules/product-categories/product-category-backoffice-index';
 import BaseSchema from '../modules/base/base-schema';
 import BaseIndex from '../modules/base/base-index';
 import BaseModel from '../modules/base/base-model';
