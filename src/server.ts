@@ -27,7 +27,7 @@ async function initializeServer() {
     //   new ProductCategorySchema(),
     // );
     // i.register();
-    server.listen(8080, (err, address) => {
+    server.listen(Number.parseInt(process.env.PORT, 10), process.env.HOST, (err, address) => {
       if (err) {
         console.error(err);
         process.exit(1);
