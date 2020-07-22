@@ -6,9 +6,9 @@ import { ObjectId } from 'mongodb';
 import BaseModel from './base-model';
 
 export default class BaseService {
-  private modelType: any;
+  protected modelType: any;
 
-  private fastifyInstance: any;
+  protected fastifyInstance: any;
 
   protected _collection = '';
 

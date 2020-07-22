@@ -38,4 +38,29 @@ export default class UserSchema extends BaseSchema {
   };
 
   required = ['name', 'email'];
+
+  get loginSchema(): any {
+    return {
+      body: {
+        type: 'object',
+        required: ['email', 'password'],
+        properties: {
+          password: {
+            type: 'string',
+            nullable: false,
+          },
+          email: {
+            type: 'string',
+            nullable: false,
+          },
+        },
+      },
+      response: {
+        '2xx': {
+          type: 'object',
+          properties: this.properties,
+        },
+      },
+    };
+  }
 }

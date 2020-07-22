@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import BaseService from './base-service';
-import BaseSchema from './base-schema';
+// import BaseSchema from './base-schema';
 
 export default class BaseIndex {
-  private prefix: string;
+  protected prefix: string;
 
-  private fastifyInstance: any;
+  protected fastifyInstance: any;
 
-  private service: BaseService;
+  protected service: any;
 
-  private schema: BaseSchema;
+  protected schema: any;
 
   constructor(
     fastifyInstance: FastifyInstance,
     serviceToUse: BaseService,
-    schema: BaseSchema,
+    schema: any,
     routesPrefix: string | null = null,
   ) {
     this.fastifyInstance = fastifyInstance;
