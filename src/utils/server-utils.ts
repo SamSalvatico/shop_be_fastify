@@ -8,9 +8,36 @@ import UserSchema from '../modules/users/user-schema';
 import UserIndex from '../modules/users/user-index';
 import User from '../modules/users/user-model';
 import UserService from '../modules/users/user-service';
+import ProductCategoryBackofficeIndex from '../modules/product-categories/product-category-backoffice-index copy';
+import BaseSchema from '../modules/base/base-schema';
+import BaseIndex from '../modules/base/base-index';
+import BaseModel from '../modules/base/base-model';
+import BaseService from '../modules/base/base-service';
 
 export default class ServerUtils {
-  static routesConfigurations = [
+  static defaultPrefix = '/api/v1';
+
+  /*
+    EXAMPLE OBJECT
+   {
+        schema: ProductCategorySchema,
+        index: ProductCategoryIndex,
+        routes_path: '/product_categories',
+        model: ProductCategory,
+        service: ProductCategoryService,
+        prefix: '/api/v2'  ### OPTIONAL, IF NOT SET GET THE DEFAULT PREFIX
+      },
+  */
+
+  static routesConfigurations: Array<
+  {
+    schema: typeof BaseSchema;
+    index: typeof BaseIndex;
+    routes_path: string;
+    model: typeof BaseModel;
+    service: typeof BaseService;
+    prefix?: string | null
+  }> = [
     {
       schema: ProductCategorySchema,
       index: ProductCategoryIndex,
@@ -25,15 +52,24 @@ export default class ServerUtils {
       model: User,
       service: UserService,
     },
+    {
+      schema: ProductCategorySchema,
+      index: ProductCategoryBackofficeIndex,
+      routes_path: '/backoffice/product_categories',
+      model: ProductCategory,
+      service: ProductCategoryService,
+    },
   ];
 
   static registerRoutes(fastifyInstance: FastifyInstance): void {
     ServerUtils.routesConfigurations.forEach((element) => {
+      let routesPath = (element.prefix === undefined || element.prefix == null) ? this.defaultPrefix : element.prefix;
+      routesPath = routesPath.concat(element.routes_path).replace('//', '/');
       const toBeRegistered = new element.index(
         fastifyInstance,
         new element.service(element.model, fastifyInstance),
         new element.schema(),
-        element.routes_path,
+        routesPath,
       );
       toBeRegistered.register();
     });

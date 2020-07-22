@@ -3,7 +3,6 @@ https://dev.azure.com/cwssrl/iotmobile_pileline/_git/iotmobile_pipeline_nodebe?p
 
 TODO
 
-- verificare codici http risposta;
 - come gestire versioning api -> aggiungere cartella con v2 ed all'inizio inserire tutti file;
 - come gestire diversi endpoint per index (backoffice, mobile, ...) -> product-category-index,product-category-backoffice-index;
 - auth -> https://github.com/fastify/fastify-auth dare occhio;
