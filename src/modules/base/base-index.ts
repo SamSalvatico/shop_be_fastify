@@ -12,11 +12,17 @@ export default class BaseIndex {
 
   private schema: BaseSchema;
 
-  constructor(fastifyInstance: FastifyInstance, serviceToUse: BaseService, schema: BaseSchema) {
-    this.prefix = serviceToUse.pathPrefix;
+  constructor(
+    fastifyInstance: FastifyInstance,
+    serviceToUse: BaseService,
+    schema: BaseSchema,
+    routesPrefix: string | null = null,
+  ) {
     this.fastifyInstance = fastifyInstance;
     this.service = serviceToUse;
     this.schema = schema;
+    this.prefix = (routesPrefix == null ? this.service.pathPrefix : routesPrefix);
+    this.prefix = (this.prefix?.startsWith('/') ? this.prefix : (`/${this.prefix}`));
   }
 
   public register(): void {

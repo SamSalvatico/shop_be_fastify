@@ -2,12 +2,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import fastify from 'fastify';
 import dotenv from 'dotenv';
-import DatabaseUtils from './utils/databaseUtils';
+import DatabaseUtils from './utils/database-utils';
 import logger from './utils/logger';
-import ProductCategory from './modules/product-categories/product-category-model';
-import ProductCategoryIndex from './modules/product-categories/product-category-index';
-import ProductCategoryService from './modules/product-categories/product-category-service';
-import ProductCategorySchema from './modules/product-categories/product-category-schema';
+import ServerUtils from './utils/server-utils';
 // server.get('/ping', async (request, reply) => {
 //  return 'pong\n'
 // })
@@ -22,13 +19,13 @@ async function initializeServer() {
       forceClose: true,
       url: DatabaseUtils.getConnectionUrl(),
     });
-    const i = new ProductCategoryIndex(
-      server,
-      new ProductCategoryService(ProductCategory, server),
-      new ProductCategorySchema(),
-    );
-    i.register();
-    // server.use(logger);
+    ServerUtils.registerRoutes(server);
+    // const i = new ProductCategoryIndex(
+    //   server,
+    //   new ProductCategoryService(ProductCategory, server),
+    //   new ProductCategorySchema(),
+    // );
+    // i.register();
     server.listen(8080, (err, address) => {
       if (err) {
         console.error(err);
@@ -36,7 +33,6 @@ async function initializeServer() {
       }
       logger.debug(`Server listening at ${address}`);
     });
-    // }
   } catch (e) {
     console.log(e);
     logger.fatal(e);
