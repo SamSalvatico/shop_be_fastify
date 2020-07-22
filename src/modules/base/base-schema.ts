@@ -7,7 +7,7 @@ export default class BaseSchema {
   get getOneSchema(): any {
     return {
       response: {
-        '2xx': {
+        200: {
           type: 'object',
           properties: this.properties,
         },
@@ -18,7 +18,7 @@ export default class BaseSchema {
   get getAllSchema(): { response: any } {
     return {
       response: {
-        '2xx': {
+        200: {
           type: 'array',
           items: {
             type: 'object',
@@ -38,7 +38,7 @@ export default class BaseSchema {
           this.properties,
       },
       response: {
-        '2xx': {
+        201: {
           type: 'object',
           properties: this.properties,
         },
@@ -55,7 +55,7 @@ export default class BaseSchema {
           this.properties,
       },
       response: {
-        '2xx': {
+        200: {
           type: 'object',
           properties: this.properties,
         },
@@ -66,7 +66,7 @@ export default class BaseSchema {
   get deleteSchema(): { response: any } {
     return {
       response: {
-        '2xx': {
+        200: {
           type: 'object',
           properties: { _id: { type: 'string' } },
         },

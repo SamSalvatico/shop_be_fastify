@@ -55,7 +55,7 @@ export default class BaseIndex {
 
   public async create(request: any, reply: FastifyReply) {
     const resp = await this.service.create(request.body);
-    return reply.send(resp);
+    return reply.code(201).send(resp);
   }
 
   public async index(request: any, reply: FastifyReply) {

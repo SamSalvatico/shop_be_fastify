@@ -56,7 +56,7 @@ export default class UserSchema extends BaseSchema {
         },
       },
       response: {
-        '2xx': {
+        200: {
           type: 'object',
           properties: this.properties,
         },
