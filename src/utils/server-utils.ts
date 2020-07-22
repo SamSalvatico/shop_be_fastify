@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 /* eslint-disable new-cap */
 import { FastifyInstance } from 'fastify';
 import ProductCategorySchema from '../modules/product-categories/product-category-schema';
@@ -30,40 +31,41 @@ export default class ServerUtils {
   */
 
   static routesConfigurations: Array<
-  {
-    schema: typeof BaseSchema;
-    index: typeof BaseIndex;
-    routes_path: string;
-    model: typeof BaseModel;
-    service: typeof BaseService;
-    prefix?: string | null
-  }> = [
     {
-      schema: ProductCategorySchema,
-      index: ProductCategoryIndex,
-      routes_path: '/product_categories',
-      model: ProductCategory,
-      service: ProductCategoryService,
-    },
-    {
-      schema: UserSchema,
-      index: UserIndex,
-      routes_path: '/users',
-      model: User,
-      service: UserService,
-    },
-    {
-      schema: ProductCategorySchema,
-      index: ProductCategoryBackofficeIndex,
-      routes_path: '/backoffice/product_categories',
-      model: ProductCategory,
-      service: ProductCategoryService,
-    },
-  ];
+      schema: typeof BaseSchema;
+      index: typeof BaseIndex;
+      routes_path: string;
+      model: typeof BaseModel;
+      service: typeof BaseService;
+      prefix?: string | null
+    }> = [
+      {
+        schema: ProductCategorySchema,
+        index: ProductCategoryIndex,
+        routes_path: '/product_categories',
+        model: ProductCategory,
+        service: ProductCategoryService,
+      },
+      {
+        schema: UserSchema,
+        index: UserIndex,
+        routes_path: '/users',
+        model: User,
+        service: UserService,
+      },
+      {
+        schema: ProductCategorySchema,
+        index: ProductCategoryBackofficeIndex,
+        routes_path: '/backoffice/product_categories',
+        model: ProductCategory,
+        service: ProductCategoryService,
+      },
+    ];
 
   static registerRoutes(fastifyInstance: FastifyInstance): void {
     ServerUtils.routesConfigurations.forEach((element) => {
-      let routesPath = (element.prefix === undefined || element.prefix == null) ? this.defaultPrefix : element.prefix;
+      let routesPath = (element.prefix === undefined || element.prefix == null)
+        ? this.defaultPrefix : element.prefix;
       routesPath = routesPath.concat(element.routes_path).replace('//', '/');
       const toBeRegistered = new element.index(
         fastifyInstance,
