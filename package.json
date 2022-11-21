@@ -19,7 +19,7 @@
   "dependencies": {
     "@types/mongodb": "^3.5.25",
     "dotenv": "^8.2.0",
-    "fastify": "^3.0.2",
+    "fastify": "^3.29.4",
     "fastify-cors": "^4.0.0",
     "fastify-mongodb": "^2.0.1",
     "mongodb": "^3.5.9",
